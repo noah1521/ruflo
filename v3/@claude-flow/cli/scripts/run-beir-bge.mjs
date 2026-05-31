@@ -74,6 +74,18 @@ const BASELINES_BY_DATASET = {
     'BGE-large-v1.5 (pub)': 0.636,
     'SBERT msmarco':        0.371,
   },
+  scidocs: {
+    'BM25 (Lucene)':        0.158,
+    'DocT5query':           0.162,
+    'TAS-B':                0.149,
+    'GenQ':                 0.143,
+    'ColBERT':              0.145,
+    'Contriever':           0.165,
+    'GTR-XL':               0.174,
+    'SPLADE++':             0.159,
+    'BGE-large-v1.5 (pub)': 0.225,
+    'SBERT msmarco':        0.122,
+  },
 };
 
 // Auto-detect dataset from DATA_DIR path; default to nfcorpus baselines.

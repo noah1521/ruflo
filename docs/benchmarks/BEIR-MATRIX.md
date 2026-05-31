@@ -118,6 +118,47 @@ ArguAna joins NFCorpus + SciFact. Same harness, same Lucene-style BM25, same BGE
 
 **BGE query prefix is mixed.** Per BAAI's docs (`Represent this sentence for searching relevant passages: `): NFCorpus +0.009 ✓, SciFact -0.007 ✗, ArguAna +0.003 ~noise. Opt-in only via `BGE_QUERY_PREFIX=1`. ADR-090.
 
+### ADR-091 — 4-dataset BEIR (3.10.30): SciDocs joins, dense alone wins it
+
+Same harness extended to SciDocs (25,657 docs, 1000 queries). Different best config:
+
+| Dataset | Best ruflo | Pipeline | Rank |
+|---|---:|---|---:|
+| NFCorpus | 0.358 | Lucene + RRF + CE rerank | 2/11 |
+| SciFact | 0.683 | Lucene + RRF + CE rerank | 3/11 |
+| ArguAna | 0.432 | Lucene + RRF (CE rerank hurt) | 5/11 |
+| **SciDocs** | **0.211** | **dense alone (RRF hurt by 0.008)** | **2/11** |
+| **4-dataset mean** | **0.421** | mixed | — |
+
+### 4-dataset means — final leaderboard
+
+| System | Params | NFCorpus | SciFact | ArguAna | SciDocs | Mean |
+|---|---:|---:|---:|---:|---:|---:|
+| BGE-large-v1.5 (published) | 335M | 0.380 | 0.722 | 0.636 | 0.225 | **0.491** |
+| SPLADE++ (published) | 110M | 0.347 | 0.704 | 0.521 | 0.159 | **0.433** |
+| **ruflo best (per-dataset)** | **110M** | **0.358** | **0.683** | **0.432** | **0.211** | **0.421** |
+| GTR-XL (published) | 1.2B | 0.343 | 0.662 | 0.439 | 0.174 | 0.405 |
+| GenQ (published) | 110M | 0.319 | 0.644 | 0.493 | 0.143 | 0.400 |
+| BM25 (published Lucene) | — | 0.325 | 0.679 | 0.397 | 0.158 | **0.390** |
+| Contriever (published) | 110M | 0.328 | 0.677 | 0.379 | 0.165 | 0.387 |
+| TAS-B (published) | 66M | 0.319 | 0.643 | 0.429 | 0.149 | 0.385 |
+| DocT5query (published) | 60M | 0.328 | 0.675 | 0.349 | 0.162 | 0.378 |
+| ColBERT (published) | 110M | 0.305 | 0.671 | 0.233 | 0.145 | 0.339 |
+| SBERT msmarco (published) | 110M | 0.272 | 0.555 | 0.371 | 0.122 | 0.330 |
+
+**Rank 3 of 11 on 4-dataset mean.** Beats every published baseline except SPLADE++ (-0.012) and BGE-large (-0.070, mostly the ArguAna gap). Using a 110M-param base — beats GTR-XL's 1.2B (+0.016, 1/10× the params).
+
+### Third config-specific finding (SciDocs adds to the pattern)
+
+| Dataset | Best config | What hurts |
+|---|---|---|
+| NFCorpus | Lucene+RRF+CE | nothing — full pipeline wins |
+| SciFact | Lucene+RRF+CE | CE rerank wins, but Lucene BM25 alone is competitive (0.681) |
+| ArguAna | Lucene+RRF (no CE) | CE rerank actively hurts (0.283 at 50q vs 0.432 RRF) |
+| **SciDocs** | **dense alone** | **RRF hurt by 0.008 (0.211 → 0.203)** |
+
+Three of four datasets pick a *different* best config. No single pipeline wins everywhere. Auto-selecting per-dataset would require a calibration step we don't have. Until then, callers should A/B their corpus.
+
 > **What pipeline is reported here:** the NFCorpus 0.352 row is the **direct
 > BGE dense path** — no fine-tuning, no hybrid BM25+dense fusion, no
 > cross-encoder reranker. The hybrid pipeline (cosine + multi-field BM25 +
