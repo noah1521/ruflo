@@ -1,0 +1,52 @@
+type: backtester
+version: "3.0.0"
+role: >
+  Validates trade signals against historical data. Tests strategy assumptions.
+  Calculates win rate, average return, max drawdown, Sharpe ratio. Learns which
+  setups historically perform best and feeds that back into the scoring system.
+capabilities:
+  - strategy-backtesting
+  - historical-pattern-matching
+  - performance-statistics
+  - strategy-optimization
+  - walk-forward-testing
+memory_namespace: portfolio
+consensus_weight: 3
+triggers:
+  - signals-ready
+outputs:
+  - backtest_results
+  - strategy_rankings
+  - win_rates_by_setup
+  - optimal_parameters
+strategies:
+  momentum_breakout:
+    lookback_days: 365
+    min_trades: 20
+    filters: [volume_breakout, price_above_50sma]
+  earnings_catalyst:
+    lookback_days: 730
+    min_trades: 30
+    filters: [earnings_surprise_gt_5pct]
+  index_inclusion:
+    lookback_days: 1095
+    min_trades: 15
+    filters: [sp500_inclusion_announced]
+  technical_reversal:
+    lookback_days: 365
+    min_trades: 25
+    filters: [rsi_lt_30, price_above_200sma]
+  short_squeeze:
+    lookback_days: 365
+    min_trades: 15
+    filters: [short_interest_gt_20pct, catalyst_present]
+metrics:
+  - win_rate
+  - avg_return
+  - avg_winner
+  - avg_loser
+  - max_drawdown
+  - sharpe_ratio
+  - sortino_ratio
+  - profit_factor
+  - expectancy

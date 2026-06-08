@@ -1,0 +1,235 @@
+{
+  "briefs": [
+    {
+      "date": "2026-06-08",
+      "topIdeas": [
+        {
+          "symbol": "META",
+          "strategy": "catalyst",
+          "action": "buy",
+          "entryPrice": 343.28,
+          "entryType": "market",
+          "stopLoss": 319.25,
+          "target": 385.43,
+          "riskReward": 1.8,
+          "positionSize": 1,
+          "dollarRisk": 48.059999999999945,
+          "allocationPct": 0.1,
+          "compositeScore": 5.6,
+          "catalysts": [
+            "analyst-upgrade: META: analyst upgrade reported"
+          ],
+          "agentVotes": [
+            {
+              "agentId": "technical-analyst",
+              "score": 7,
+              "weight": 2,
+              "reasoning": "Price > 20 SMA; Price > 50 SMA; Price > 200 SMA — confirmed uptrend; RSI 52 — bullish momentum zone; At 52-week high — breakout"
+            },
+            {
+              "agentId": "fundamental-analyst",
+              "score": 6,
+              "weight": 3,
+              "reasoning": "PEG 2.18 — stretched; Gross margin 82% — high quality; Net margin 39%; Low leverage"
+            },
+            {
+              "agentId": "sentiment-analyst",
+              "score": 3,
+              "weight": 1,
+              "reasoning": "High social buzz (10.9/10); Strong institutional accumulation; High short interest 21% — squeeze potential"
+            },
+            {
+              "agentId": "backtester",
+              "score": 5,
+              "weight": 3,
+              "reasoning": "Win rate 50%, Sharpe 0.00"
+            }
+          ],
+          "entryConditions": [
+            "Enter at market open after catalyst confirmation",
+            "Confirm no gap-fill of >50% pre-market"
+          ],
+          "exitConditions": [
+            "Hard stop: close below $319.25 (7% loss)",
+            "Trail stop to breakeven after +10% gain ($377.61)",
+            "Primary target: $385.43",
+            "Close below 10-day low — trend broken"
+          ]
+        },
+        {
+          "symbol": "AAPL",
+          "strategy": "index-inclusion",
+          "action": "buy",
+          "entryPrice": 339.7,
+          "entryType": "breakout",
+          "stopLoss": 315.92,
+          "target": 387.26,
+          "riskReward": 2,
+          "positionSize": 1,
+          "dollarRisk": 47.559999999999945,
+          "allocationPct": 0.1,
+          "compositeScore": 5,
+          "catalysts": [
+            "sp500-inclusion: AAPL: sp500 inclusion reported"
+          ],
+          "agentVotes": [
+            {
+              "agentId": "backtester",
+              "score": 5,
+              "weight": 3,
+              "reasoning": "Win rate 50%, Sharpe 0.00"
+            }
+          ],
+          "entryConditions": [
+            "Price closes above $339.36 with 1.5x+ average volume",
+            "RSI between 50–70 on entry bar"
+          ],
+          "exitConditions": [
+            "Hard stop: close below $315.92 (7% loss)",
+            "Trail stop to breakeven after +10% gain ($373.67)",
+            "Primary target: $387.26",
+            "Close below 10-day low — trend broken"
+          ]
+        },
+        {
+          "symbol": "NVDA",
+          "strategy": "catalyst",
+          "action": "buy",
+          "entryPrice": 345.27,
+          "entryType": "market",
+          "stopLoss": 321.1,
+          "target": 387.67,
+          "riskReward": 1.8,
+          "positionSize": 1,
+          "dollarRisk": 48.33999999999992,
+          "allocationPct": 0.1,
+          "compositeScore": 5,
+          "catalysts": [
+            "earnings-beat: NVDA: earnings beat reported"
+          ],
+          "agentVotes": [
+            {
+              "agentId": "backtester",
+              "score": 5,
+              "weight": 3,
+              "reasoning": "Win rate 50%, Sharpe 0.00"
+            }
+          ],
+          "entryConditions": [
+            "Enter at market open after catalyst confirmation",
+            "Confirm no gap-fill of >50% pre-market"
+          ],
+          "exitConditions": [
+            "Hard stop: close below $321.10 (7% loss)",
+            "Trail stop to breakeven after +10% gain ($379.80)",
+            "Primary target: $387.67",
+            "Close below 10-day low — trend broken"
+          ]
+        },
+        {
+          "symbol": "MSFT",
+          "strategy": "catalyst",
+          "action": "buy",
+          "entryPrice": 362.18,
+          "entryType": "market",
+          "stopLoss": 336.83,
+          "target": 406.66,
+          "riskReward": 1.8,
+          "positionSize": 0,
+          "dollarRisk": 0,
+          "allocationPct": 0,
+          "compositeScore": 5,
+          "catalysts": [
+            "buyback-announcement: MSFT: buyback announcement reported"
+          ],
+          "agentVotes": [
+            {
+              "agentId": "backtester",
+              "score": 5,
+              "weight": 3,
+              "reasoning": "Win rate 50%, Sharpe 0.00"
+            }
+          ],
+          "entryConditions": [
+            "Enter at market open after catalyst confirmation",
+            "Confirm no gap-fill of >50% pre-market"
+          ],
+          "exitConditions": [
+            "Hard stop: close below $336.83 (7% loss)",
+            "Trail stop to breakeven after +10% gain ($398.40)",
+            "Primary target: $406.66",
+            "Close below 10-day low — trend broken"
+          ]
+        },
+        {
+          "symbol": "AMZN",
+          "strategy": "catalyst",
+          "action": "buy",
+          "entryPrice": 358.2,
+          "entryType": "market",
+          "stopLoss": 333.13,
+          "target": 402.19,
+          "riskReward": 1.8,
+          "positionSize": 1,
+          "dollarRisk": 50.139999999999986,
+          "allocationPct": 0.1,
+          "compositeScore": 5,
+          "catalysts": [
+            "earnings-beat: AMZN: earnings beat reported"
+          ],
+          "agentVotes": [
+            {
+              "agentId": "backtester",
+              "score": 5,
+              "weight": 3,
+              "reasoning": "Win rate 50%, Sharpe 0.00"
+            }
+          ],
+          "entryConditions": [
+            "Enter at market open after catalyst confirmation",
+            "Confirm no gap-fill of >50% pre-market"
+          ],
+          "exitConditions": [
+            "Hard stop: close below $333.13 (7% loss)",
+            "Trail stop to breakeven after +10% gain ($394.02)",
+            "Primary target: $402.19",
+            "Close below 10-day low — trend broken"
+          ]
+        }
+      ],
+      "openPositions": [],
+      "performance": {
+        "monthlyReturn": 0,
+        "ytdReturn": 0,
+        "winRate": 0.5,
+        "avgWinLoss": 2,
+        "bestTrade": "N/A",
+        "worstTrade": "N/A",
+        "totalTrades": 0,
+        "openPositions": 0,
+        "weeklyReturn": 0,
+        "drawdown": 0
+      },
+      "nextActions": [
+        "BUY META @ $343.28 | Stop $319.25 | Target $385.43 | Score 5.6/10",
+        "BUY AAPL @ $339.70 | Stop $315.92 | Target $387.26 | Score 5/10",
+        "BUY NVDA @ $345.27 | Stop $321.10 | Target $387.67 | Score 5/10"
+      ],
+      "macroContext": {
+        "vixLevel": 18.5,
+        "vixTrend": "falling",
+        "yieldCurve": "flat",
+        "sectorRotation": "Rotating into Technology, Consumer Discretionary; out of Consumer Staples, Energy",
+        "marketPhase": "bull",
+        "riskOnOff": "neutral",
+        "interestRateTrend": "stable",
+        "recommendation": "Neutral macro: selective stock picking with moderate sizing. Rotating into Technology, Consumer Discretionary; out of Consumer Staples, Energy"
+      },
+      "riskMode": "normal"
+    }
+  ],
+  "positions": [],
+  "trades": [],
+  "backtestResults": [],
+  "lastUpdated": "2026-06-08T14:46:53.085Z"
+}

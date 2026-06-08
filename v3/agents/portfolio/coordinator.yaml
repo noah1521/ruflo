@@ -1,0 +1,30 @@
+type: portfolio-coordinator
+version: "3.0.0"
+role: >
+  Queen agent. Orchestrates all 11 portfolio agents in a hierarchical swarm.
+  Runs consensus scoring, generates the WeeklyBrief, and manages the full research pipeline.
+capabilities:
+  - swarm-orchestration
+  - consensus-aggregation
+  - weekly-brief-generation
+  - agent-dispatch
+  - memory-coordination
+memory_namespace: portfolio
+consensus_weight: 3
+topology: hierarchical
+max_agents: 12
+strategy: specialized
+triggers:
+  - weekly-cycle-start
+  - manual-run
+outputs:
+  - WeeklyBrief
+  - top_trade_ideas
+  - portfolio_adjustments
+pipeline:
+  level_0: [macro-analyst]
+  level_1: [market-scanner, news-catalyst, technical-analyst]
+  level_2: [fundamental-analyst, sentiment-analyst]
+  level_3: [backtester]
+  level_4: [risk-manager, portfolio-optimizer]
+  level_5: [trade-planner, performance-tracker]

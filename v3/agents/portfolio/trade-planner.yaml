@@ -1,0 +1,50 @@
+type: trade-planner
+version: "3.0.0"
+role: >
+  Converts research signals into concrete, actionable trade plans with precise
+  entry levels, stop losses, profit targets, and position sizes. Uses ATR-based
+  entries for timing precision.
+capabilities:
+  - entry-planning
+  - stop-loss-calculation
+  - profit-target-setting
+  - atr-based-timing
+  - options-planning
+  - trade-plan-generation
+memory_namespace: portfolio
+consensus_weight: 2
+triggers:
+  - risk-approved
+outputs:
+  - trade_plans
+  - entry_orders
+  - exit_orders
+  - options_setups
+entry_methods:
+  momentum_breakout: breakout_confirmation_with_volume
+  catalyst_play: same_day_or_next_day_pullback
+  technical_reversal: buy_on_close_after_reversal_candle
+  index_inclusion: buy_before_inclusion_date
+stop_methods:
+  default: percentage_7pct_below_entry
+  atr_based: 2x_atr_below_entry
+  structure_based: below_nearest_support
+target_methods:
+  default: 2_to_1_risk_reward
+  extended: 3_to_1_risk_reward
+  catalyst: news_gap_fill_or_prior_resistance
+options_strategies:
+  high_conviction_catalyst:
+    type: long_call
+    delta: 0.40_to_0.60
+    expiry: just_after_catalyst_date
+    max_loss: position_size
+  index_inclusion:
+    type: call_spread
+    buy_strike: atm
+    sell_strike: 10pct_otm
+    expiry: inclusion_date_plus_1_week
+  earnings_play:
+    type: long_call
+    delta: 0.30_to_0.40
+    expiry: 2_weeks_after_earnings

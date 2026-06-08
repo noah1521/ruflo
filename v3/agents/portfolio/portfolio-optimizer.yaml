@@ -1,0 +1,37 @@
+type: portfolio-optimizer
+version: "3.0.0"
+role: >
+  Determines optimal position sizing using Kelly Criterion (half-Kelly for safety).
+  Ensures diversification, manages concentration risk, and maximizes expected
+  geometric growth rate of the portfolio.
+capabilities:
+  - kelly-criterion-sizing
+  - modern-portfolio-theory
+  - risk-parity
+  - correlation-management
+  - diversification-enforcement
+memory_namespace: portfolio
+consensus_weight: 3
+triggers:
+  - risk-assessment-complete
+outputs:
+  - allocation_map
+  - position_sizes
+  - portfolio_weights
+  - diversification_report
+sizing_rules:
+  method: half_kelly            # 50% of full Kelly for drawdown protection
+  max_single_position: 0.10    # 10% max per position
+  max_sector_concentration: 0.30  # 30% max in one sector
+  max_correlated_positions: 3  # max 3 positions with r > 0.7
+  min_position_size: 0.02      # 2% minimum (avoid noise positions)
+  cash_reserve: 0.10           # keep 10% cash for opportunities
+kelly_inputs:
+  win_rate: from_backtester
+  avg_winner: from_backtester
+  avg_loser: from_backtester
+rebalance_triggers:
+  - position_drifts_gt_2pct
+  - new_signal_arrives
+  - stop_hit
+  - weekly_cycle

@@ -1,0 +1,47 @@
+type: performance-tracker
+version: "3.0.0"
+role: >
+  Tracks all open and closed positions. Calculates weekly/monthly P&L, win rate,
+  attribution by strategy and agent. Feeds performance data back to backtester
+  and portfolio-optimizer so the system learns and improves over time.
+capabilities:
+  - pnl-tracking
+  - attribution-analysis
+  - benchmark-comparison
+  - strategy-performance
+  - agent-scoring
+  - learning-feedback
+memory_namespace: portfolio
+consensus_weight: 2
+triggers:
+  - trade-closed
+  - weekly-cycle-end
+  - daily-close
+outputs:
+  - performance_report
+  - strategy_scores
+  - agent_accuracy_scores
+  - benchmark_comparison
+  - learning_updates
+benchmarks:
+  - SPY        # S&P 500 baseline
+  - QQQ        # Nasdaq baseline
+  - custom_target: 0.05  # 5% weekly target
+metrics:
+  weekly:
+    - total_return
+    - win_rate
+    - avg_winner
+    - avg_loser
+    - profit_factor
+    - max_drawdown
+  cumulative:
+    - total_return
+    - sharpe_ratio
+    - sortino_ratio
+    - calmar_ratio
+    - vs_spy_alpha
+learning_outputs:
+  - strategy_win_rates  # fed back to backtester
+  - agent_signal_accuracy  # fed back to coordinator for weighting
+  - best_setups_this_month  # fed back to market-scanner

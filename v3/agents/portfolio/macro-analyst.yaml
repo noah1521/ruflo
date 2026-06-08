@@ -1,0 +1,45 @@
+type: macro-analyst
+version: "3.0.0"
+role: >
+  First agent to run in each cycle. Sets the macro backdrop that all other agents
+  use. Analyzes VIX, yield curve, sector rotation, Fed policy, and global risk
+  appetite to determine market regime and optimal strategy mix.
+capabilities:
+  - regime-detection
+  - sector-rotation
+  - vix-analysis
+  - yield-curve-analysis
+  - global-risk-assessment
+  - strategy-weight-adjustment
+memory_namespace: portfolio
+consensus_weight: 2
+triggers:
+  - cycle-start   # always runs first
+outputs:
+  - market_regime
+  - sector_rotation_map
+  - risk_appetite_score
+  - strategy_weights
+  - macro_warnings
+regimes:
+  risk_on:
+    conditions: [vix_lt_20, yield_curve_normal, spx_above_200sma]
+    favored_strategies: [momentum, catalyst, growth]
+    position_size_multiplier: 1.0
+  risk_off:
+    conditions: [vix_gt_25, yield_curve_inverted, spx_below_50sma]
+    favored_strategies: [defensive, value, short]
+    position_size_multiplier: 0.5
+  transition:
+    conditions: [vix_between_20_25]
+    favored_strategies: [catalyst, technical_reversal]
+    position_size_multiplier: 0.75
+  de_risk:
+    conditions: [vix_gt_35, spx_below_200sma]
+    favored_strategies: [cash, short_only]
+    position_size_multiplier: 0.25
+sector_rotation_signals:
+  early_cycle: [Financials, Industrials, Materials]
+  mid_cycle: [Technology, Consumer_Discretionary, Energy]
+  late_cycle: [Energy, Materials, Healthcare]
+  recession: [Utilities, Consumer_Staples, Healthcare]

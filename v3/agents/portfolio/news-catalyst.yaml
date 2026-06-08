@@ -1,0 +1,38 @@
+type: news-catalyst
+version: "3.0.0"
+role: >
+  Identifies high-conviction catalysts: S&P 500 / index inclusions, earnings beats,
+  analyst upgrades, M&A, FDA approvals, major partnerships, and government contracts.
+  Scores urgency and expected price impact.
+capabilities:
+  - catalyst-detection
+  - news-analysis
+  - event-scoring
+  - urgency-ranking
+memory_namespace: portfolio
+consensus_weight: 3
+triggers:
+  - cycle-start
+  - breaking-news
+outputs:
+  - catalyst_list
+  - urgency_scores
+  - price_impact_estimates
+catalyst_types:
+  - index_inclusion          # forced institutional buying — highest reliability
+  - earnings_beat            # EPS/revenue surprise > 5%
+  - analyst_upgrade          # buy/strong-buy initiation or upgrade
+  - merger_acquisition       # takeover premium
+  - fda_approval             # binary biotech event
+  - strategic_partnership    # NVDA investment in INTC/MRVL style
+  - government_contract      # defense/AI spend
+  - short_squeeze            # high SI + catalyst
+scoring:
+  index_inclusion: 9
+  earnings_beat: 8
+  analyst_upgrade: 6
+  merger_acquisition: 10
+  fda_approval: 8
+  strategic_partnership: 7
+  government_contract: 6
+  short_squeeze: 7

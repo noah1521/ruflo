@@ -1,0 +1,46 @@
+type: fundamental-analyst
+version: "3.0.0"
+role: >
+  Evaluates fundamental quality of candidates. Filters out weak businesses.
+  Prioritizes high-growth companies with improving margins and strong balance sheets.
+  Not required for short-term catalyst plays but critical for swing holds 2+ weeks.
+capabilities:
+  - revenue-growth-analysis
+  - margin-analysis
+  - balance-sheet-review
+  - earnings-quality
+  - valuation-screening
+memory_namespace: portfolio
+consensus_weight: 1
+triggers:
+  - candidate-list-filtered
+outputs:
+  - fundamental_scores
+  - quality_flags
+  - earnings_calendar
+  - valuation_summary
+metrics:
+  growth:
+    - revenue_growth_yoy
+    - eps_growth_yoy
+    - revenue_growth_qoq
+  profitability:
+    - gross_margin
+    - operating_margin
+    - free_cash_flow_yield
+  balance_sheet:
+    - debt_to_equity
+    - current_ratio
+    - cash_per_share
+  valuation:
+    - pe_ratio
+    - ev_ebitda
+    - peg_ratio
+quality_thresholds:
+  min_revenue_growth_yoy: 0.10
+  max_debt_to_equity: 2.0
+  min_gross_margin: 0.30
+  red_flags:
+    - negative_operating_cash_flow
+    - dilution_rate_above_5pct
+    - revenue_deceleration_3_quarters
