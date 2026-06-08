@@ -201,11 +201,11 @@
       "performance": {
         "monthlyReturn": 0,
         "ytdReturn": 0,
-        "winRate": 0.5,
+        "winRate": 0.2,
         "avgWinLoss": 2,
         "bestTrade": "N/A",
         "worstTrade": "N/A",
-        "totalTrades": 0,
+        "totalTrades": 5,
         "openPositions": 0,
         "weeklyReturn": 0,
         "drawdown": 0
@@ -231,5 +231,5 @@
   "positions": [],
   "trades": [],
   "backtestResults": [],
-  "lastUpdated": "2026-06-08T14:46:53.085Z"
+  "lastUpdated": "2026-06-08T15:03:21.031Z"
 }
