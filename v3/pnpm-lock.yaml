@@ -144,7 +144,7 @@ importers:
         specifier: ^0.1.3
         version: 0.1.3(@claude-flow/memory@@claude-flow+memory)
       '@claude-flow/security':
-        specifier: ^3.0.0-alpha.8
+        specifier: ^3.0.0-alpha.10
         version: link:../security
       '@ruvector/attention':
         specifier: ^0.1.32
@@ -520,6 +520,9 @@ importers:
 
   '@claude-flow/security':
     dependencies:
+      '@noble/ed25519':
+        specifier: ^2.1.0
+        version: 2.3.0
       bcryptjs:
         specifier: ^3.0.3
         version: 3.0.3
