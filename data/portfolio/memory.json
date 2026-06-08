@@ -217,13 +217,13 @@
       ],
       "macroContext": {
         "vixLevel": 18.5,
-        "vixTrend": "falling",
+        "vixTrend": "neutral",
         "yieldCurve": "flat",
-        "sectorRotation": "Rotating into Technology, Consumer Discretionary; out of Consumer Staples, Energy",
+        "sectorRotation": "Rotating into Technology, Consumer Discretionary; out of Energy, Utilities",
         "marketPhase": "bull",
         "riskOnOff": "neutral",
         "interestRateTrend": "stable",
-        "recommendation": "Neutral macro: selective stock picking with moderate sizing. Rotating into Technology, Consumer Discretionary; out of Consumer Staples, Energy"
+        "recommendation": "Neutral macro: selective stock picking with moderate sizing. Rotating into Technology, Consumer Discretionary; out of Energy, Utilities"
       },
       "riskMode": "normal"
     }
@@ -231,5 +231,5 @@
   "positions": [],
   "trades": [],
   "backtestResults": [],
-  "lastUpdated": "2026-06-08T15:03:21.031Z"
+  "lastUpdated": "2026-06-08T20:39:47.518Z"
 }
