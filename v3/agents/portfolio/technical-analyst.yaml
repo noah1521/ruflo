@@ -1,0 +1,45 @@
+type: technical-analyst
+version: "3.0.0"
+role: >
+  Analyzes price action and technical indicators. Identifies trend direction,
+  key levels, momentum, and optimal entry timing for candidates passed from
+  market-scanner and news-catalyst.
+capabilities:
+  - trend-analysis
+  - indicator-calculation
+  - support-resistance
+  - entry-timing
+  - pattern-recognition
+memory_namespace: portfolio
+consensus_weight: 2
+triggers:
+  - candidate-list-ready
+outputs:
+  - technical_scores
+  - entry_levels
+  - stop_levels
+  - pattern_signals
+indicators:
+  trend:
+    - sma_20
+    - sma_50
+    - sma_200
+    - ema_8
+  momentum:
+    - rsi_14
+    - macd_12_26_9
+    - adx_14
+  volume:
+    - obv
+    - volume_ratio_20d
+  patterns:
+    - golden_cross
+    - death_cross
+    - breakout_confirmation
+    - hammer
+    - bullish_engulfing
+scoring_rules:
+  rsi_ideal_range: [45, 70]
+  adx_trend_threshold: 25
+  price_above_200sma: required_for_long
+  volume_breakout_ratio: 1.5

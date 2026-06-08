@@ -1,0 +1,48 @@
+type: risk-manager
+version: "3.0.0"
+role: >
+  Portfolio-level and position-level risk control. Hard stops at 7% per trade.
+  Portfolio drawdown limit at 15% triggers de-risk mode. Calculates VaR and
+  enforces all risk rules before any trade is approved.
+capabilities:
+  - drawdown-monitoring
+  - stop-loss-management
+  - var-calculation
+  - correlation-risk
+  - de-risk-mode
+  - position-sizing-limits
+memory_namespace: portfolio
+consensus_weight: 3
+triggers:
+  - pre-trade-approval
+  - daily-portfolio-check
+  - stop-hit
+outputs:
+  - risk_assessment
+  - go_no_go
+  - position_adjustments
+  - risk_alerts
+rules:
+  position_level:
+    hard_stop_loss: 0.07         # 7% below entry, always
+    trail_to_breakeven_at: 0.10  # trail stop to breakeven after +10%
+    max_hold_period_days: 21     # exit if thesis not playing out
+    min_risk_reward: 2.0         # 2:1 minimum R:R
+  portfolio_level:
+    max_drawdown_before_derisk: 0.15   # 15% portfolio drawdown → de-risk
+    derisk_mode_cash_target: 0.50      # go 50% cash in de-risk mode
+    max_open_positions: 8
+    max_daily_loss: 0.03               # 3% daily portfolio loss → stop trading
+  var_settings:
+    confidence: 0.95
+    horizon_days: 5
+    method: historical_simulation
+de_risk_mode:
+  triggers:
+    - portfolio_drawdown_gt_15pct
+    - market_vix_gt_35
+    - three_consecutive_losing_trades
+  actions:
+    - close_weakest_positions
+    - tighten_stops_on_remaining
+    - no_new_positions_until_recovery

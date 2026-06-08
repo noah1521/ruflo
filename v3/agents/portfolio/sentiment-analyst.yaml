@@ -1,0 +1,41 @@
+type: sentiment-analyst
+version: "3.0.0"
+role: >
+  Analyzes market sentiment signals: institutional flows, insider buying/selling,
+  short interest, options flow (unusual call buying), and analyst sentiment trends.
+  High insider buying + unusual call flow is a powerful combo signal.
+capabilities:
+  - institutional-flow-analysis
+  - insider-transaction-tracking
+  - options-flow-analysis
+  - short-interest-monitoring
+  - analyst-sentiment-tracking
+memory_namespace: portfolio
+consensus_weight: 2
+triggers:
+  - candidate-list-filtered
+outputs:
+  - sentiment_scores
+  - insider_signals
+  - institutional_signals
+  - options_flow_alerts
+signals:
+  bullish:
+    - insider_buying_cluster      # 3+ insiders buying same week
+    - institutional_accumulation  # 13F shows new positions
+    - unusual_call_buying         # 10x average call volume
+    - short_squeeze_setup         # SI > 20% + catalyst
+    - analyst_upgrade_cluster     # 2+ upgrades same week
+  bearish:
+    - insider_selling_cluster
+    - institutional_distribution
+    - unusual_put_buying
+    - analyst_downgrade_cluster
+scoring:
+  insider_buying_cluster: +3
+  institutional_accumulation: +2
+  unusual_call_buying: +2
+  short_squeeze_setup: +3
+  analyst_upgrade_cluster: +2
+  insider_selling_cluster: -3
+  unusual_put_buying: -3

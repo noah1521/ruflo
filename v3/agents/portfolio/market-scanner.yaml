@@ -1,0 +1,30 @@
+type: market-scanner
+version: "3.0.0"
+role: >
+  Scans the market universe for high-momentum candidates. Identifies breakouts,
+  volume anomalies, 52-week highs, and sector leaders. Returns top 20 candidates
+  scored 1-10 on momentum quality.
+capabilities:
+  - momentum-detection
+  - breakout-scanning
+  - volume-analysis
+  - sector-leadership
+memory_namespace: portfolio
+consensus_weight: 2
+triggers:
+  - cycle-start
+  - market-open
+outputs:
+  - candidate_list
+  - momentum_scores
+  - volume_signals
+filters:
+  min_price: 5
+  min_volume: 500000
+  min_market_cap: 500000000
+  exchanges: [NASDAQ, NYSE, AMEX]
+scoring:
+  momentum_20d: 0.3
+  volume_ratio: 0.25
+  trend_strength: 0.25
+  sector_rank: 0.2
