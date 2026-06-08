@@ -18,6 +18,9 @@ import { analyzeNews, type NewsBundle } from './news-catalyst.js';
 import { analyzeTechnicals } from './technical-analyst.js';
 import { analyzeFundamentals } from './fundamental-analyst.js';
 import { analyzeSentiment } from './sentiment-analyst.js';
+import { scanOptionsFlow } from './options-flow-scanner.js';
+import { detectShortSqueezes } from './short-squeeze-detector.js';
+import { trackCryptoCorrelations } from './crypto-correlation-tracker.js';
 import { runBacktest } from './backtester.js';
 import { optimizePortfolio } from './portfolio-optimizer.js';
 import { assessRisk } from './risk-manager.js';
@@ -39,6 +42,9 @@ const AGENT_WEIGHTS: Record<string, number> = {
   'trade-planner': 2,
   'performance-tracker': 1,
   'macro-analyst': 2,
+  'options-flow-scanner': 3,
+  'short-squeeze-detector': 2,
+  'crypto-correlation-tracker': 1,
 };
 
 export interface CoordinatorConfig extends WorkflowConfig {
@@ -137,16 +143,27 @@ export class PortfolioCoordinator {
 
     // ── Level 2: Fundamental + sentiment filter ──────────────────────────────
     const topSymbols = candidates.slice(0, 20).map((c: CandidateStock) => c.symbol);
-    const [fundamentalFindings, sentimentFindings] = await Promise.all([
+    const [fundamentalFindings, sentimentFindings, optionsBundle, squeezeBundle, cryptoBundle] = await Promise.all([
       analyzeFundamentals(topSymbols),
       analyzeSentiment(topSymbols),
+      scanOptionsFlow(topSymbols),
+      detectShortSqueezes(topSymbols, []),
+      trackCryptoCorrelations(),
     ]);
+
+    // Log extended agent summaries
+    console.log(`[coordinator] Options flow: ${optionsBundle.topBullishSymbols.length} bullish, ${optionsBundle.topBearishSymbols.length} bearish symbols`);
+    console.log(`[coordinator] Short squeeze: ${squeezeBundle.topSetups.filter((s) => s.setupQuality === 'A').length} A-grade setups`);
+    console.log(`[coordinator] Crypto: ${cryptoBundle.overallCryptoSentiment} / ${cryptoBundle.riskAppetiteSignal}`);
 
     // Aggregate all agent findings
     const allFindings: AgentFinding[] = [
       ...technicalFindings,
       ...fundamentalFindings,
       ...sentimentFindings,
+      ...optionsBundle.findings,
+      ...squeezeBundle.findings,
+      ...cryptoBundle.findings,
     ];
 
     // Combine signals: market scan + catalyst

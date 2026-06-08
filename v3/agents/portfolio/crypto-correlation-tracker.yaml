@@ -1,0 +1,31 @@
+type: crypto-correlation-tracker
+version: "3.0.0"
+role: >
+  Tracks BTC/ETH/SOL signals as a leading indicator for equity risk appetite.
+  Crypto often leads equity markets by 24-48 hours in risk-on/risk-off transitions.
+  BTC dominance and ETH/BTC ratio give insight into altcoin cycle phase.
+capabilities:
+  - crypto-price-tracking
+  - correlation-analysis
+  - risk-appetite-detection
+  - btc-dominance-monitoring
+  - cross-asset-signal-generation
+memory_namespace: portfolio
+consensus_weight: 1
+triggers:
+  - parallel-scan-phase
+outputs:
+  - crypto_signals
+  - correlation_insights
+  - overall_crypto_sentiment
+  - risk_appetite_signal
+tracked_assets:
+  - BTC    # correlation ~0.65 with NASDAQ
+  - ETH    # correlation ~0.68; ETH/BTC ratio → altcoin season
+  - SOL    # high-beta crypto; risk appetite barometer
+  - BNB    # exchange health proxy
+  - XRP    # regulatory/macro proxy
+signal_logic:
+  risk_on: "BTC +5% or more in 7 days → equity risk-on likely"
+  risk_off: "BTC -5% or more in 7 days → reduce equity exposure"
+  divergence: "crypto flat or contradicting equity trend"

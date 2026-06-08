@@ -1,0 +1,32 @@
+type: options-flow-scanner
+version: "3.0.0"
+role: >
+  Detects unusual options activity as a leading indicator for price moves.
+  Smart money signals: large call sweeps, unusual OI buildups, put walls.
+  High-urgency signals (>$1M premium, <30 DTE) are weighted heavily.
+capabilities:
+  - unusual-options-detection
+  - call-sweep-analysis
+  - put-wall-detection
+  - smart-money-tracking
+  - options-sentiment-scoring
+memory_namespace: portfolio
+consensus_weight: 3
+triggers:
+  - parallel-scan-phase
+outputs:
+  - options_flow_signals
+  - top_bullish_symbols
+  - top_bearish_symbols
+  - urgency_scores
+signal_types:
+  - unusual_calls        # >3x avg call volume
+  - unusual_puts         # >3x avg put volume
+  - large_call_sweep     # single sweep >$500k premium
+  - large_put_sweep      # single sweep >$500k premium
+  - call_wall            # massive OI at specific strike (resistance → target)
+  - put_wall             # massive OI at specific strike (support)
+urgency_thresholds:
+  high: 8               # premium >$1M AND DTE <30
+  medium: 5             # premium >$250k
+  low: 2                # below $250k

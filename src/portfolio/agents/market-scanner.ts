@@ -1,5 +1,7 @@
 import type { CandidateStock } from '../types.js';
 import { score as momentumScore, passesFilter } from '../strategies/momentum.js';
+import { fetchTopMovers, fetchLiveQuotes } from '../data/live-quotes.js';
+import { FmpUnavailableError } from '../data/fmp-client.js';
 
 // ─── Mock market data generator ───────────────────────────────────────────────
 // Generates realistic-looking candidates when live data is unavailable.
@@ -102,10 +104,31 @@ function isSectorLeader(candidates: CandidateStock[], c: CandidateStock): boolea
 export async function scanMarket(universe: string, limit = 20): Promise<CandidateStock[]> {
   const symbols = resolveUniverse(universe);
 
-  // Generate candidates (in real system: fetch from data provider)
-  const candidates: CandidateStock[] = symbols.map((sym, idx) =>
-    generateCandidate(sym, idx),
-  );
+  // ─── Attempt live data via FMP ─────────────────────────────────────────────
+  let candidates: CandidateStock[];
+  try {
+    // For default universes, prefer gainers/most-active (broader signal set)
+    const isDefault = universe === 'SP500_NASDAQ' || universe === 'SP500';
+    const liveData = await Promise.race([
+      isDefault ? fetchTopMovers() : fetchLiveQuotes({ symbols }),
+      new Promise<CandidateStock[]>((resolve) => setTimeout(() => resolve([]), 7000)),
+    ]);
+
+    if (liveData.length > 0) {
+      console.log('[market-scanner] Using live FMP data');
+      candidates = liveData;
+    } else {
+      console.log('[market-scanner] Using mock data (FMP returned empty)');
+      candidates = symbols.map((sym, idx) => generateCandidate(sym, idx));
+    }
+  } catch (err) {
+    if (err instanceof FmpUnavailableError) {
+      console.log('[market-scanner] Using mock data (FMP unavailable)');
+    } else {
+      console.warn('[market-scanner] FMP error, falling back to mock:', (err as Error).message);
+    }
+    candidates = symbols.map((sym, idx) => generateCandidate(sym, idx));
+  }
 
   // Score each candidate
   for (const c of candidates) {

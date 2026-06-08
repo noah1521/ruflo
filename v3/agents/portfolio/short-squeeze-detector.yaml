@@ -1,0 +1,31 @@
+type: short-squeeze-detector
+version: "3.0.0"
+role: >
+  Identifies short squeeze setups: stocks with high short interest,
+  high days-to-cover, elevated borrow costs, AND a fresh catalyst.
+  The combination of all three creates explosive upside potential.
+capabilities:
+  - short-interest-analysis
+  - days-to-cover-calculation
+  - borrow-cost-tracking
+  - catalyst-correlation
+  - squeeze-scoring
+memory_namespace: portfolio
+consensus_weight: 2
+triggers:
+  - parallel-scan-phase
+outputs:
+  - squeeze_setups
+  - top_setups
+  - setup_quality_grades
+scoring:
+  short_interest_gt_20pct: +3
+  short_interest_gt_30pct: +5
+  days_to_cover_gt_3: +2
+  days_to_cover_gt_7: +3
+  catalyst_present: +3
+  borrow_cost_gt_50pct: +1
+quality_grades:
+  A: "score >= 8 (all criteria met)"
+  B: "score 5-7"
+  C: "score < 5"

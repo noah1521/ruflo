@@ -1,4 +1,5 @@
 import type { MacroContext } from '../types.js';
+import { fetchMacroData } from '../data/live-quotes.js';
 
 // ─── Mock macro data ──────────────────────────────────────────────────────────
 // Production: integrate Fed data (FRED API), options chains (VIX), yield curve.
@@ -111,9 +112,29 @@ function buildRecommendation(
  * Falls back to mock data when live feeds are unavailable.
  */
 export async function analyzeMacro(): Promise<MacroContext> {
-  await Promise.resolve();
+  let indicators: MacroIndicators;
 
-  const indicators = getMockIndicators();
+  try {
+    const live = await fetchMacroData();
+    console.log('[macro-analyst] Using live FMP data');
+    indicators = {
+      vix: live.vix,
+      vixPrevWeek: live.vix / (1 + live.vixChange1d / 100),
+      tenYrYield: live.tenYearYield,
+      twoYrYield: live.twoYearYield,
+      fedFundsRate: 4.25,
+      sp500Price: 7400,
+      sp500Sma200: 6800,
+      leadingSectorPerf: live.topSectors.reduce<Record<string, number>>((acc, s, i) => {
+        acc[s] = 0.08 - i * 0.02;
+        return acc;
+      }, {}),
+    };
+    for (const s of live.bottomSectors) indicators.leadingSectorPerf[s] = -0.02;
+  } catch {
+    console.log('[macro-analyst] Using mock data (FMP unavailable)');
+    indicators = getMockIndicators();
+  }
 
   const { level: vixLevel, trend: vixTrend } = analyzeVix(indicators.vix, indicators.vixPrevWeek);
   const yieldCurve = analyzeYieldCurve(indicators.tenYrYield, indicators.twoYrYield);
