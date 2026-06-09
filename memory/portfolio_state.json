@@ -1,0 +1,138 @@
+{
+  "fund": "Z&N adVentures",
+  "account_number": "521437343",
+  "brokerage": "Robinhood",
+  "founded": "2026-06-08",
+  "last_updated": "2026-06-09T15:30:00Z",
+  "swarm_version": "v2",
+  "swarm_status": "ZN-Memory v2 ACTIVE 2026-06-09 — all 6 memory files ingested, 4 patterns embedded (P1 TGT gold standard, P2 META mistake, P3 MRVL inclusion, P4 MRVL gap), pattern match run on NVDA/RKLB (HIGH WATCH candidates), MRVL gap classified as macro-amplified + unresolved idiosyncratic, session-end record written to morning_brief.md",
+  "performance": {
+    "inception_date": "2026-06-08",
+    "starting_capital": 50.00,
+    "current_capital": 100.00,
+    "total_value": 141.46,
+    "equity_value": 38.039,
+    "options_value": 6.00,
+    "cash": 96.58,
+    "buying_power": 11.80,
+    "pending_deposit": 50.00,
+    "cash_reserve_minimum": 10.00,
+    "safely_deployable": 1.80,
+    "equity_pnl_inception": -1.977,
+    "options_pnl_inception": 41.00,
+    "net_pnl_inception": 39.023,
+    "net_return_inception_pct": 39.02,
+    "best_trade": "TGT calls +93% (2026-06-09)"
+  },
+  "positions": [
+    {
+      "symbol": "NVDA",
+      "shares": 0.0619,
+      "avg_cost": 210.00,
+      "cost_basis": 12.999,
+      "current_price": 204.05,
+      "current_value": 12.629,
+      "unrealized_pnl": -0.37,
+      "unrealized_pnl_pct": -2.85,
+      "stop_level_20pct": 168.00,
+      "stop_status": "CLEAR",
+      "prev_close": 208.64,
+      "day_change_pct": -2.21,
+      "note": "Hold — post-FOMC OTM call candidate if criteria confirm"
+    },
+    {
+      "symbol": "MRVL",
+      "shares": 0.0346,
+      "avg_cost": 288.67,
+      "cost_basis": 9.988,
+      "current_price": 261.59,
+      "current_value": 9.047,
+      "unrealized_pnl": -0.941,
+      "unrealized_pnl_pct": -9.43,
+      "stop_level_20pct": 230.94,
+      "stop_status": "CLEAR — WATCH",
+      "prev_close": 288.85,
+      "day_change_pct": -9.45,
+      "note": "S&P 500 inclusion June 22 — HOLD minimum through this date. -9.4% drop today — verify cause."
+    },
+    {
+      "symbol": "META",
+      "shares": 0.0085,
+      "avg_cost": 590.67,
+      "cost_basis": 5.021,
+      "current_price": 589.74,
+      "current_value": 5.013,
+      "unrealized_pnl": -0.008,
+      "unrealized_pnl_pct": -0.14,
+      "stop_level_20pct": 472.54,
+      "stop_status": "CLEAR",
+      "prev_close": 585.39,
+      "day_change_pct": 0.76,
+      "note": "Equity hold — Llama/AI infra thesis intact"
+    },
+    {
+      "symbol": "BOTZ",
+      "shares": 0.1820,
+      "avg_cost": 38.46,
+      "cost_basis": 6.999,
+      "current_price": 37.49,
+      "current_value": 6.823,
+      "unrealized_pnl": -0.176,
+      "unrealized_pnl_pct": -2.51,
+      "stop_level_20pct": 30.77,
+      "stop_status": "CLEAR",
+      "prev_close": 38.32,
+      "day_change_pct": -2.15,
+      "note": "ETF — equity accumulation only, not OTM call eligible"
+    },
+    {
+      "symbol": "SOXL",
+      "shares": 0.0237,
+      "avg_cost": 211.33,
+      "cost_basis": 5.009,
+      "current_price": 191.28,
+      "current_value": 4.533,
+      "unrealized_pnl": -0.476,
+      "unrealized_pnl_pct": -9.50,
+      "stop_level_20pct": 169.06,
+      "stop_status": "CLEAR — WATCH",
+      "prev_close": 211.44,
+      "day_change_pct": -9.66,
+      "note": "3x leveraged ETF — monitor through FOMC week. FOMC volatility risk elevated."
+    }
+  ],
+  "watchlist_quotes": {
+    "RKLB": { "price": 107.125, "prev_close": 113.65, "day_change_pct": -5.74, "note": "HIGH WATCH OTM call candidate — verify all 5 criteria post-FOMC" },
+    "SPCX": { "price": 135.00, "note": "IPO day-one play June 13 — deploy $10-20 at open, sell same day" },
+    "TGT": { "price": 126.36, "prev_close": 123.97, "day_change_pct": 1.93, "note": "Monitor for Q2 earnings OTM call setup ~mid-August 2026" }
+  },
+  "open_options": [],
+  "closed_options_trades": [
+    {
+      "ticker": "TGT",
+      "type": "Call",
+      "strike": 133,
+      "expiry": "2026-06-09",
+      "entry_premium": 0.11,
+      "contracts": 4,
+      "entry_date": "2026-06-09",
+      "exits": [
+        { "contracts": 1, "exit_premium": 0.15, "pnl": 4.00 },
+        { "contracts": 2, "exit_premium": 0.20, "pnl": 18.00 },
+        { "contracts": 1, "exit_premium": 0.30, "pnl": 19.00 }
+      ],
+      "total_pnl": 41.00,
+      "return_pct": 93.0,
+      "status": "closed"
+    }
+  ],
+  "day_trades_rolling_5d": 0,
+  "pdt_limit": 3,
+  "upcoming_catalysts": [
+    { "date": "2026-06-10", "event": "CPI print", "action": "Hold all options — watch NVDA/MRVL reaction" },
+    { "date": "2026-06-11", "event": "ORCL earnings", "action": "Evaluate AI cloud signal for options play" },
+    { "date": "2026-06-12", "event": "FOMC rate decision", "action": "Dovish = green light for NVDA/RKLB OTM calls" },
+    { "date": "2026-06-13", "event": "SPCX IPO + Monthly OpEx", "action": "Deploy $10-20 SPCX at open, sell same day; size down on OpEx vol" },
+    { "date": "2026-06-22", "event": "MRVL S&P 500 inclusion", "action": "HOLD MRVL through this date minimum" }
+  ]
+}
